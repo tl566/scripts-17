@@ -42,7 +42,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var date_fns_1 = require("date-fns");
 var axios_1 = require("axios");
-var TS_USER_AGENTS_1 = require("TS_USER_AGENTS");
+var TS_USER_AGENTS_1 = require("/ql/scripts/xyh977732241_jiaoben_TS_USER_AGENTS");
 var CryptoJS = require('crypto-js');
 var appId = 10028, fingerprint, token, enCryptMethodJD;
 var cookie = '', cookiesArr = [], res = '', shareCodes = [];
