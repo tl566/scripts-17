@@ -3,23 +3,21 @@ const $ = new Env("我的第一个js脚本");
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require("./jdCookie.js") : "";
 //IOS等用户直接用NobyDa的jd cookie
-let cookiesArr = [
-		"pt_key=AAJhGjhJADD4prTCd25PKO4pyzz6kwEhjZrbLokRfmGKSZ3Omom5nbdboDSMeQ8dsppxiOt-qgc;pt_pin=YING520A;",
-	],
+let cookiesArr = [],
 	cookie = "";
- if ($.isNode()) {
- 	Object.keys(jdCookieNode).forEach((item) => {
- 		cookiesArr.push(jdCookieNode[item]);
- 	});
- 	if (process.env.JD_DEBUG && process.env.JD_DEBUG === "false")
- 		console.log = () => {};
- } else {
- 	cookiesArr = [
- 		$.getdata("CookieJD"),
- 		$.getdata("CookieJD2"),
- 		...jsonParse($.getdata("CookiesJD") || "[]").map((item) => item.cookie),
- 	].filter((item) => !!item);
- }
+if ($.isNode()) {
+	Object.keys(jdCookieNode).forEach((item) => {
+		cookiesArr.push(jdCookieNode[item]);
+	});
+	if (process.env.JD_DEBUG && process.env.JD_DEBUG === "false")
+		console.log = () => {};
+} else {
+	cookiesArr = [
+		$.getdata("CookieJD"),
+		$.getdata("CookieJD2"),
+		...jsonParse($.getdata("CookiesJD") || "[]").map((item) => item.cookie),
+	].filter((item) => !!item);
+}
 !(async () => {
 	if (!cookiesArr[0]) {
 		$.msg(
