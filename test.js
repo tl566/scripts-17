@@ -49,7 +49,6 @@ if ($.isNode()) {
 					}\n请重新登录获取\nhttps://bean.m.jd.com/bean/signIndex.action`,
 					{ "open-url": "https://bean.m.jd.com/bean/signIndex.action" }
 				);
-
 				// if ($.isNode()) {
 				// 	await notify.sendNotify(
 				// 		`${$.name}cookie已失效 - ${$.UserName}`,
