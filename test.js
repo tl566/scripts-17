@@ -44,6 +44,7 @@ if ($.isNode()) {
 			//通知信息
 			$.message = "";
 			$.errorMsg = "";
+			await Test();
 			console.log(
 				`\n********开始【京东账号${$.index}】${
 					$.nickName || $.UserName
@@ -82,6 +83,65 @@ if ($.isNode()) {
 	.finally(() => {
 		$.done();
 	});
+function Test() {
+	return new Promise(async (resolve) => {
+		const options = {
+			url: "https://me-api.jd.com/user_new/info/GetJDUserInfoUnion",
+			headers: {
+				Host: "me-api.jd.com",
+				Accept: "*/*",
+				Connection: "keep-alive",
+				Cookie: cookie,
+				"User-Agent": $.isNode()
+					? process.env.JD_USER_AGENT
+						? process.env.JD_USER_AGENT
+						: require("./USER_AGENTS").USER_AGENT
+					: $.getdata("JDUA")
+					? $.getdata("JDUA")
+					: "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1",
+				"Accept-Language": "zh-cn",
+				Referer: "https://home.m.jd.com/myJd/newhome.action?sceneval=2&ufc=&",
+				"Accept-Encoding": "gzip, deflate, br",
+			},
+		};
+		$.get(options, (err, resp, data) => {
+			try {
+				if (err) {
+					$.logErr(err);
+				} else {
+					if (data) {
+						// data = JSON.parse(data);
+						// if (data["retcode"] === "1001") {
+						// 	$.isLogin = false; //cookie过期
+						// 	return;
+						// }
+						// if (
+						// 	data["retcode"] === "0" &&
+						// 	data.data &&
+						// 	data.data.hasOwnProperty("userInfo")
+						// ) {
+						// 	$.nickName = data.data.userInfo.baseInfo.nickname;
+						// }
+						// if (
+						// 	data["retcode"] === "0" &&
+						// 	data.data &&
+						// 	data.data["assetInfo"]
+						// ) {
+						// 	$.beanCount = data.data && data.data["assetInfo"]["beanNum"];
+						// }
+						console.log(data);
+					} else {
+						$.log("京东服务器返回空数据");
+					}
+				}
+			} catch (e) {
+				$.logErr(e);
+			} finally {
+				resolve();
+			}
+		});
+	});
+}
 async function showMsg() {
 	if ($.errorMsg) return;
 	//allMessage += `账号${$.index}：${$.nickName || $.UserName}\n今日收入：${$.todayIncomeBean}京豆 🐶\n昨日收入：${$.incomeBean}京豆 🐶\n昨日支出：${$.expenseBean}京豆 🐶\n当前京豆：${$.beanCount}(今日将过期${$.expirejingdou})京豆 🐶${$.message}${$.index !== cookiesArr.length ? '\n\n' : ''}`;
