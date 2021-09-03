@@ -23,7 +23,7 @@ def ql_login():
         password = auth["password"]
         token = auth["token"]
         if token == '':
-            url = "http://127.0.0.1:5702/api/login"
+            url = "http://82.156.185.106:5702/api/login"
             payload = {"username": username, "password": password}
             headers = {'Content-Type': 'application/json'}
             res = requests.post(url=url, headers=headers,
@@ -142,7 +142,7 @@ def boom():
 
 def serch_ck(pin):
     pin2 = pin.replace('%', '%5C%25')
-    conn = http.client.HTTPConnection("127.0.0.1", 5702)
+    conn = http.client.HTTPConnection("82.156.185.106", 5702)
     payload = ''
     headers = {'Authorization': 'Bearer '+token}
     url = '/api/envs?searchValue={0}'.format(pin2)
@@ -164,7 +164,7 @@ def serch_ck(pin):
 
 
 def ql_update(eid, n_ck):
-    url = 'http://127.0.0.1:5702/api/envs'
+    url = 'http://82.156.185.106:5702/api/envs'
     data = {"name": "JD_COOKIE", "value": n_ck, "_id": eid}
     data = json.dumps(data)
     res = json.loads(s.put(url=url, data=data).text)
@@ -173,7 +173,7 @@ def ql_update(eid, n_ck):
 
 
 def ql_enable(eid):
-    url = 'http://127.0.0.1:5702/api/envs/enable'
+    url = 'http://82.156.185.106:5702/api/envs/enable'
     data = '["{0}"]'.format(eid)
     res = json.loads(s.put(url=url, data=data).text)
     if res['code'] == 200:
@@ -187,7 +187,7 @@ def ql_enable(eid):
 
 
 def ql_disable(eid):
-    url = 'http://127.0.0.1:5702/api/envs/disable'
+    url = 'http://82.156.185.106:5702/api/envs/disable'
     data = '["{0}"]'.format(eid)
     res = json.loads(s.put(url=url, data=data).text)
     if res['code'] == 200:
@@ -203,7 +203,7 @@ def ql_disable(eid):
 def ql_insert(i_ck):
     data = [{"value": i_ck, "name": "JD_COOKIE"}]
     data = json.dumps(data)
-    url = 'http://127.0.0.1:5702/api/envs'
+    url = 'http://82.156.185.106:5702/api/envs'
     s.post(url=url, data=data)
     print("账号添加完成")
     print("--------------------\n")
