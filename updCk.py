@@ -83,6 +83,7 @@ def wstopt(cookies):
         if k == 'pt_key' or k == 'pt_pin':
             result += k + "=" + v + "; "
     if result[0:15] == 'pt_key=app_open':
+    	print(resule)
         return result
     else:
         return 'error'
