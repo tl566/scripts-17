@@ -1,4 +1,5 @@
 # 在这里输入青龙面板用户名密码，如果不填写，就自动从auth.json中读取
+# 在这里输入青龙面板用户名密码，如果不填写，就自动从auth.json中读取
 username = "admin"
 password = "XIANGyu5599"
 
@@ -13,6 +14,7 @@ requests.packages.urllib3.disable_warnings()
 token = ""
 if username == "" or password == "":
     f = open("/ql/config/auth.json")
+    f = open("/ql/config/auth.json")
     auth = f.read()
     auth = json.loads(auth)
     username = auth["username"]
@@ -26,21 +28,21 @@ def gettimestamp():
 
 
 def login(username, password):
-    url = "http://127.0.0.1:5704/api/login?t=%s" % gettimestamp()
+    url = "http://82.156.185.106:5704/api/login?t=%s" % gettimestamp()
     data = {"username": username, "password": password}
     r = s.post(url, data)
     s.headers.update({"authorization": "Bearer " + json.loads(r.text)["data"]["token"]})
 
 
 def getitem(searchValue):
-    url = "http://127.0.0.1:5704/api/envs?searchValue=%s&t=%s" % (searchValue, gettimestamp())
+    url = "http://82.156.185.106:5704/api/envs?searchValue=%s&t=%s" % (searchValue, gettimestamp())
     r = s.get(url)
     item = json.loads(r.text)["data"]
     return item
 
 
 def getckitem(searchValue, value):
-    url = "http://127.0.0.1:5704/api/envs?searchValue=%s&t=%s" % (searchValue, gettimestamp())
+    url = "http://82.156.185.106:5704/api/envs?searchValue=%s&t=%s" % (searchValue, gettimestamp())
     r = s.get(url)
     for i in json.loads(r.text)["data"]:
         if value in i["value"]:
@@ -101,7 +103,7 @@ def checkcookie(cookies):
 
 
 def update(text, qlid):
-    url = "http://127.0.0.1:5704/api/envs?t=%s" % gettimestamp()
+    url = "http://82.156.185.106:5704/api/envs?t=%s" % gettimestamp()
     s.headers.update({"Content-Type": "application/json;charset=UTF-8"})
     data = {
         "name": "JD_COOKIE",
@@ -116,7 +118,7 @@ def update(text, qlid):
 
 
 def insert(text):
-    url = "http://127.0.0.1:5704/api/envs?t=%s" % gettimestamp()
+    url = "http://82.156.185.106:5704/api/envs?t=%s" % gettimestamp()
     s.headers.update({"Content-Type": "application/json;charset=UTF-8"})
     data = []
     data_json = {
