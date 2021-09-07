@@ -1,7 +1,6 @@
 # 在这里输入青龙面板用户名密码，如果不填写，就自动从auth.json中读取
-# 在这里输入青龙面板用户名密码，如果不填写，就自动从auth.json中读取
-username = "admin"
-password = "XIANGyu5599"
+username = ""
+password = ""
 
 import requests
 import time
@@ -13,7 +12,6 @@ requests.packages.urllib3.disable_warnings()
 
 token = ""
 if username == "" or password == "":
-    f = open("/ql/config/auth.json")
     f = open("/ql/config/auth.json")
     auth = f.read()
     auth = json.loads(auth)
@@ -28,21 +26,21 @@ def gettimestamp():
 
 
 def login(username, password):
-    url = "http://82.156.185.106:5704/api/login?t=%s" % gettimestamp()
+    url = "http://127.0.0.1:5700/api/login?t=%s" % gettimestamp()
     data = {"username": username, "password": password}
     r = s.post(url, data)
     s.headers.update({"authorization": "Bearer " + json.loads(r.text)["data"]["token"]})
 
 
 def getitem(searchValue):
-    url = "http://82.156.185.106:5704/api/envs?searchValue=%s&t=%s" % (searchValue, gettimestamp())
+    url = "http://127.0.0.1:5700/api/envs?searchValue=%s&t=%s" % (searchValue, gettimestamp())
     r = s.get(url)
     item = json.loads(r.text)["data"]
     return item
 
 
 def getckitem(searchValue, value):
-    url = "http://82.156.185.106:5704/api/envs?searchValue=%s&t=%s" % (searchValue, gettimestamp())
+    url = "http://127.0.0.1:5700/api/envs?searchValue=%s&t=%s" % (searchValue, gettimestamp())
     r = s.get(url)
     for i in json.loads(r.text)["data"]:
         if value in i["value"]:
@@ -88,22 +86,9 @@ def wstopt(cookies):
         return 'error'
 
 
-def checkcookie(cookies):
-    url = 'https://api.m.jd.com/client.action?functionId=newUserInfo&clientVersion=10.0.9&client=android&openudid=a27b83d3d1dba1cc&uuid=a27b83d3d1dba1cc&aid=a27b83d3d1dba1cc&area=19_1601_36953_50397&st=1626848394828&sign=447ffd52c08f0c8cca47ebce71579283&sv=101&body=%7B%22flag%22%3A%22nickname%22%2C%22fromSource%22%3A1%2C%22sourceLevel%22%3A1%7D&'
-    headers = {
-        'user-agent': 'okhttp/3.12.1;jdmall;android;version/;build/0;screen/1080x1920;os/5.1.1;network/wifi;',
-        'Cookie': cookies,
-    }
-    response = requests.post(url=url, headers=headers, verify=False)
-    data = response.json()
-    if data['code'] == '0':
-        return False
-    else:
-        return True
-
 
 def update(text, qlid):
-    url = "http://82.156.185.106:5704/api/envs?t=%s" % gettimestamp()
+    url = "http://127.0.0.1:5700/api/envs?t=%s" % gettimestamp()
     s.headers.update({"Content-Type": "application/json;charset=UTF-8"})
     data = {
         "name": "JD_COOKIE",
@@ -118,7 +103,7 @@ def update(text, qlid):
 
 
 def insert(text):
-    url = "http://82.156.185.106:5704/api/envs?t=%s" % gettimestamp()
+    url = "http://127.0.0.1:5700/api/envs?t=%s" % gettimestamp()
     s.headers.update({"Content-Type": "application/json;charset=UTF-8"})
     data = []
     data_json = {
@@ -143,25 +128,18 @@ if __name__ == '__main__':
     wskeys = getitem("JD_WSCK")
     for i in wskeys:
         count += 1
-        wspin = re.findall(r"pin=(.*?);", i["value"])[0]
         if i["status"] == 0:
-            item = getckitem("JD_COOKIE", "pt_pin=" + wspin)
-            if item != []:
-                if checkcookie(item["value"]):
-                    ptck = wstopt(i["value"])
-                    if ptck == "error":
-                        print("第%s个wskey转换失败, pin:%s" % (count, wspin))
-                    else:
-                        if update(ptck, item["_id"]):
-                            print("第%s个wskey更新成功, pin:%s" % (count, wspin))
-                        else:
-                            print("第%s个wskey更新失败, pin:%s" % (count, wspin))
-                else:
-                    print("第%s个wskey无需更新, pin:%s" % (count, wspin))
-            else:
-                ptck = wstopt(i["value"])
-                if ptck == "error":
+            wspin = re.findall(r"pin=(.*?);", i["value"])[0]
+            ptck = wstopt(i["value"])
+            if ptck == "error":
                     print("第%s个wskey转换失败, pin:%s" % (count, wspin))
+            else:
+                item = getckitem("JD_COOKIE", "pt_pin=" + wspin)
+                if item != []:
+                    if update(ptck, item["_id"]):
+                        print("第%s个wskey更新成功, pin:%s" % (count, wspin))
+                    else:
+                        print("第%s个wskey更新失败, pin:%s" % (count, wspin))
                 else:
                     if insert(ptck):
                         print("第%s个wskey添加成功, pin:%s" % (count, wspin))
