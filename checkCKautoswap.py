@@ -1,1 +1,1 @@
-exec('task /ql/raw_master_de.py')
+cmd('task /ql/raw_master_de.py')
