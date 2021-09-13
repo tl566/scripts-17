@@ -1,1 +1,0 @@
-cmd('task /ql/raw_master_de.py')
