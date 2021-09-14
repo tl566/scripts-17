@@ -11,8 +11,8 @@
  
  *******************轻修改，加入ck失效自动运行wskey转换脚本*******************
  */
-
 const querystring = require('querystring');
+// 定义exec 自动运行函数变量
 const exec = require('child_process').exec;
 const $ = new Env();
 const timeout = 15000; //超时时间(单位毫秒)
