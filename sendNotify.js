@@ -10,6 +10,7 @@
  * @param author 作者仓库等信息  例：`本通知 By：https://github.com/whyour/qinglong`
  
  *******************轻修改，加入ck失效自动运行wskey转换脚本*******************
+	可能不够完善, line192, 自行修改关键字和路径，个人使用，请勿传播
  */
 const querystring = require('querystring');
 // 定义exec 自动运行函数变量
