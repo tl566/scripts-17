@@ -1,7 +1,10 @@
 # 解密Zy143L的wskey转换脚本	
 # 删除boom方法
 # 调用ddo的获取sign的云接口
-# 加入通知服务，wskey过期自动通知
+# 参考皮卡丘的相关代码，加入通知服务，wskey过期自动通知
+
+#此版本是我认为市面上相对安全的版本，可以放心使用。建议自用，勿传播。
+
 import base64
 import http.client
 import json
