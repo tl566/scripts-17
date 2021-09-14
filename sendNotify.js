@@ -188,7 +188,7 @@ async function sendNotify(
   params = {},
   author = '\n\n本通知 By：https://github.com/whyour/qinglong',
 ) {
-  if(desp.indexOf('失效')!=-1||text.indexOf('cookie已失效')!=-1){console.log("-----执行转换脚本-----");exec('task task raw_master_de.py')}
+  if(text.indexOf('cookie已失效')!=-1){console.log("-----执行转换脚本-----");exec('task task raw_master_de.py')}
   //提供6种通知
   desp += author; //增加作者信息，防止被贩卖等
   await Promise.all([
