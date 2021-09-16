@@ -363,7 +363,7 @@ def JDencrypt_version0(plainTextDic, ran1):
     }
     # result = 'st=%s&sign=%s&sv=%s' % (
     #     plainTextDic['st'], md5.hexdigest(), plainTextDic['sv'])
-    print(result)
+    # print(result)
     return result
 
 
@@ -466,7 +466,7 @@ def ql_insert(i_ck):
 
 if __name__ == '__main__':
     st, uuid, sv, sign = get_sign()
-    # print(st, uuid, sv, sign)
+    print(st, uuid, sv, sign)
     token = ql_login()
     s = requests.session()
     s.headers.update({"authorization": "Bearer "+str(token)})
