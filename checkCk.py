@@ -1,21 +1,20 @@
-import requests
-import json
 import time
+import datetime
 import os
+import sys
+import random
+import requests
+import re
+import json
+from urllib.parse import quote, unquote
+import threading
+requests.packages.urllib3.disable_warnings()
 
 
-def gettimestamp():
-    return str(int(time.time() * 1000))
-
-
-def getitem(searchValue):
-    url = "http://127.0.0.1:5700/api/envs?searchValue=%s&t=%s" % (
-        searchValue, gettimestamp())
-    r = s.get(url)
-    print('r:{r}')
-    item = json.loads(r.text)["data"]
-    print('item:{item}')
-    return item
+def println(s):
+    print("[{0}]: {1}".format(
+        datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), s))
+    sys.stdout.flush()
 
 
 def check_ck(ck):
@@ -28,12 +27,11 @@ def check_ck(ck):
             code = int(json.loads(res.text)['retcode'])
             resp = json.loads(res.text)
             nickname = resp['data']['userInfo']['baseInfo']['nickname']
-            # pin = ck.split(";")[1]
             if code == 0:
-                print(nickname, "状态正常\n")
+                println(f"账号{nickname}的状态正常\n")
                 return True
             else:
-                print(nickname, "状态失效\n")
+                println(f"账号{nickname}状态已经失效\n")
                 return False
         else:
             return False
@@ -43,10 +41,9 @@ def check_ck(ck):
 
 
 if __name__ == '__main__':
-    s = requests.session()
-    # cookies = getitem("JD_COOKIE")
     cookies = os.environ['JD_COOKIE']
     cookies = cookies.split('&')
-    print(cookies)
-    for i in cookies:
-        check_ck(cookies[i])
+    println(f'总共{len(cookies)}个账号\n')
+    print('\n--------------正在检测京东账号的可用性----------------\n')
+    for ck in cookies:
+        check_ck(ck)
