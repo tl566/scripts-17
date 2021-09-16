@@ -377,7 +377,7 @@ def get_sign():
     ran1 = 2  # sv随机数
     plainTextDic = {
         'functionId': 'genToken',
-        'clientVersion': '10.1.2',
+        'clientVersion': '9.2.0',
         'client': 'android',
         'uuid': 'a27c56da92d3c148',
         'body': '{"action":"to","to":"https%3A%2F%2Fdivide.jd.com%2Fuser_routing%3FskuId%3D100012043978"}',
