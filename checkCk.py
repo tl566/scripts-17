@@ -11,7 +11,9 @@ def getitem(searchValue):
     url = "http://127.0.01:5700/api/envs?searchValue=%s&t=%s" % (
         searchValue, gettimestamp())
     r = s.get(url)
+    print('r:{r}')
     item = json.loads(r.text)["data"]
+    print('item:{item}')
     return item
 
 
@@ -42,5 +44,6 @@ def check_ck(ck):
 if __name__ == '__main__':
     s = requests.session()
     cookies = getitem("JD_COOKIE")
+    print('cookies:{cookies}')
     for i in cookies:
         check_ck(cookies[i])
