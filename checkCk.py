@@ -46,6 +46,5 @@ if __name__ == '__main__':
     s = requests.session()
     # cookies = getitem("JD_COOKIE")
     cookies = os.environ['JD_COOKIE']
-    print('cookies:', cookies)
-    # for i in cookies:
-    # check_ck(cookies[i])
+    for i in cookies:
+        check_ck(cookies[i])
