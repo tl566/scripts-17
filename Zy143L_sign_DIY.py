@@ -156,6 +156,7 @@ def getToken(wskey):
     res = requests.post(url=url, params=params,
                         headers=headers, data=data, verify=False)
     res_json = json.loads(res.text)
+    print(res_json)
     tokenKey = res_json['tokenKey']
     return appjmp(wskey, tokenKey)
 
