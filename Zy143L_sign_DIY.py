@@ -378,9 +378,9 @@ def get_sign():
         'functionId': 'genToken',
         'clientVersion': '10.1.2',
         'client': 'android',
-        'uuid': 'a27b83d3d1dba1cc',
+        'uuid': 'a27c56da92d3c148',
         'body': '{"action":"to","to":"https%3A%2F%2Fdivide.jd.com%2Fuser_routing%3FskuId%3D100012043978"}',
-        'st': 1630413012009
+        'st': 1631763902041
     }
     # print(JDencrypt_version0(plainTextDic=plainTextDic, ran1=ran1))
     # url = 'https://hellodns.coding.net/p/sign/d/jsign/git/raw/master/sign'
@@ -466,6 +466,7 @@ def ql_insert(i_ck):
 
 if __name__ == '__main__':
     st, uuid, sv, sign = get_sign()
+    # print(st, uuid, sv, sign)
     token = ql_login()
     s = requests.session()
     s.headers.update({"authorization": "Bearer "+str(token)})
@@ -480,6 +481,7 @@ if __name__ == '__main__':
                 jck = str(return_serch[1])
                 if not check_ck(jck):
                     return_ws = getToken(ws)
+                    print(return_ws)
                     if return_ws[0]:
                         nt_key = str(return_ws[1])
                         print("wskey转换成功\n")
