@@ -47,5 +47,6 @@ if __name__ == '__main__':
     # cookies = getitem("JD_COOKIE")
     cookies = os.environ['JD_COOKIE']
     cookies = cookies.split('&')
+    print(cookies)
     for i in cookies:
         check_ck(cookies[i])
