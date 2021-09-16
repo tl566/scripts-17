@@ -8,7 +8,7 @@ def gettimestamp():
 
 
 def getitem(searchValue):
-    url = "http://127.0.01:5700/api/envs?searchValue=%s&t=%s" % (
+    url = "http://127.0.0.1:5700/api/envs?searchValue=%s&t=%s" % (
         searchValue, gettimestamp())
     r = s.get(url)
     print('r:{r}')
