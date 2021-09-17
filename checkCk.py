@@ -11,6 +11,48 @@ import threading
 requests.packages.urllib3.disable_warnings()
 
 
+message_info = ''''''
+
+
+def message(str_msg):
+    global message_info
+    print(str_msg)
+    message_info = "{}\n{}".format(message_info, str_msg)
+    sys.stdout.flush()
+
+
+def getsendNotify(a=0):
+    if a == 0:
+        a += 1
+    try:
+        url = 'https://gitee.com/curtinlv/Public/raw/master/sendNotify.py'
+        response = requests.get(url)
+        if 'main' in response.text:
+            with open('sendNotify.py', "w+", encoding="utf-8") as f:
+                f.write(response.text)
+        else:
+            if a < 5:
+                a += 1
+                return getsendNotify(a)
+            else:
+                pass
+    except:
+        if a < 5:
+            a += 1
+            return getsendNotify(a)
+        else:
+            pass
+
+
+cur_path = os.path.abspath(os.path.dirname(__file__))
+sys.path.append(cur_path)
+if os.path.exists(cur_path + "/sendNotify.py"):
+    from sendNotify import send
+else:
+    getsendNotify()
+    from sendNotify import send
+
+
 def println(s):
     print("[{0}]: {1}".format(
         datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), s))
@@ -21,22 +63,21 @@ def check_ck(ck):
     url = 'https://wq.jd.com/user_new/info/GetJDUserInfoUnion?orgFlag=JD_PinGou_New&callSource=mainorder'
     headers = {'Cookie': ck, 'Referer': 'https://home.m.jd.com/myJd/home.action',
                'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Mobile/15E148 Safari/604.1', }
-    try:
-        res = requests.get(url=url, headers=headers, verify=False, timeout=30)
-        if res.status_code == 200:
-            code = int(json.loads(res.text)['retcode'])
+    res = requests.get(url=url, headers=headers, verify=False, timeout=30)
+    pin = ck.split(";")[1]
+    if res.status_code == 200:
+        code = int(json.loads(res.text)['retcode'])
+        if code == 0:
             resp = json.loads(res.text)
             nickname = resp['data']['userInfo']['baseInfo']['nickname']
-            if code == 0:
-                println(f"账号{nickname}的状态正常\n")
-                return True
-            else:
-                println(f"账号{nickname}状态已经失效\n")
-                return False
+            println(f"账号{nickname}的状态正常\n")
+            return True
         else:
+            println(f"账号{pin}状态已经失效\n")
+            send(f"账号{pin}状态已经失效\n", message_info)
             return False
-    except Exception:
-        print(nickname, "状态失效\n")
+    else:
+        send(f"账号{pin}状态已经失效\n", message_info)
         return False
 
 
