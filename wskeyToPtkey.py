@@ -1,9 +1,9 @@
-# 解密Zy143L的wskey转换脚本	
+# 解密Zy143L的wskey转换脚本
 # 删除boom方法
 # 调用ddo的获取sign的云接口
 # 参考皮卡丘的相关代码，加入通知服务，wskey过期自动通知
 
-#此版本是我认为市面上相对安全的版本，可以放心使用。建议自用，勿传播。
+# 此版本是我认为市面上相对安全的版本，可以放心使用。建议自用，勿传播。
 
 import base64
 import http.client
@@ -18,28 +18,16 @@ except Exception as e:
 os.environ['no_proxy'] = '*'
 requests.packages.urllib3.disable_warnings()
 
-# Env环境设置 通知服务
-# export BARK=''                   # bark服务,苹果商店自行搜索;
-# export SCKEY=''                  # Server酱的SCKEY;
-# export TG_BOT_TOKEN=''           # tg机器人的TG_BOT_TOKEN;
-# export TG_USER_ID=''             # tg机器人的TG_USER_ID;
-# export TG_API_HOST=''            # tg 代理api
-# export TG_PROXY_IP=''            # tg机器人的TG_PROXY_IP;
-# export TG_PROXY_PORT=''          # tg机器人的TG_PROXY_PORT;
-# export DD_BOT_ACCESS_TOKEN=''    # 钉钉机器人的DD_BOT_ACCESS_TOKEN;
-# export DD_BOT_SECRET=''          # 钉钉机器人的DD_BOT_SECRET;
-# export QQ_SKEY=''                # qq机器人的QQ_SKEY;
-# export QQ_MODE=''                # qq机器人的QQ_MODE;
-# export QYWX_AM=''                # 企业微信；http://note.youdao.com/s/HMiudGkb
-# export PUSH_PLUS_TOKEN=''        # 微信推送Plus+ ；
-
-######## 获取通知模块
 message_info = ''''''
+
+
 def message(str_msg):
     global message_info
     print(str_msg)
     message_info = "{}\n{}".format(message_info, str_msg)
     sys.stdout.flush()
+
+
 def getsendNotify(a=0):
     if a == 0:
         a += 1
@@ -61,6 +49,8 @@ def getsendNotify(a=0):
             return getsendNotify(a)
         else:
             pass
+
+
 cur_path = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(cur_path)
 if os.path.exists(cur_path + "/sendNotify.py"):
@@ -68,7 +58,7 @@ if os.path.exists(cur_path + "/sendNotify.py"):
 else:
     getsendNotify()
     from sendNotify import send
-###################
+
 
 def ql_login():
     path = '/ql/config/auth.json'
@@ -121,24 +111,6 @@ def get_ck():
         sys.exit(0)
 
 
-def check_ck(ck):
-    url = 'https://wq.jd.com/user_new/info/GetJDUserInfoUnion?orgFlag=JD_PinGou_New&callSource=mainorder'
-    headers = {'Cookie': ck, 'Referer': 'https://home.m.jd.com/myJd/home.action',
-               'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Mobile/15E148 Safari/604.1', }
-    res = requests.get(url=url, headers=headers, verify=False, timeout=30)
-    if res.status_code == 200:
-        code = int(json.loads(res.text)['retcode'])
-        pin = ck.split(";")[1]
-        if code == 0:
-            print(pin, "状态正常\n")
-            return True
-        else:
-            print(pin, "状态失效\n")
-            return False
-    else:
-        return False
-
-
 def getToken(wskey):
     headers = {'cookie': wskey, 'User-Agent': 'okhttp/3.12.1;jdmall;android;version/10.1.2;build/89743;screen/1440x3007;os/11;network/wifi;',
                'content-type': 'application/x-www-form-urlencoded; charset=UTF-8', 'charset': 'UTF-8', 'accept-encoding': 'br,gzip,deflate'}
@@ -168,7 +140,7 @@ def appjmp(wskey, tokenKey):
     wskey = wskey.split(";")[0]
     if 'fake' in pt_key:
         print(wskey, "wskey状态失效\n")
-        send(wskey+"的wskey状态失效\n请查看是否退出客户端或者修改过密码",message_info)
+        send(wskey+"的wskey状态失效\n请查看是否退出客户端或者修改过密码", message_info)
         return False, jd_ck
     else:
         print(wskey, "wskey状态正常\n")
@@ -269,23 +241,19 @@ if __name__ == '__main__':
             return_serch = serch_ck(wspin)
             if return_serch[0]:
                 jck = str(return_serch[1])
-                if not check_ck(jck):
-                    return_ws = getToken(ws)
-                    if return_ws[0]:
-                        nt_key = str(return_ws[1])
-                        print("wskey转换成功\n")
-                        eid = return_serch[2]
-                        ql_update(eid, nt_key)
-                    else:
-                        print(ws, "wskey失效\n")
-                        send(wskey+"的wskey状态失效\n请查看是否退出了客户端或者修改过密码",message_info)
-                        eid = return_serch[2]
-                        print("禁用账号", wspin)
-                        ql_disable(eid)
+                return_ws = getToken(ws)
+                if return_ws[0]:
+                    nt_key = str(return_ws[1])
+                    print("wskey转换成功\n")
+                    eid = return_serch[2]
+                    ql_update(eid, nt_key)
                 else:
-                    print(wspin, "账号有效")
-                    print("--------------------\n")
-                    
+                    print(ws, "wskey失效\n")
+                    send(ws+"的wskey状态失效\n请查看是否退出了客户端或者修改过密码", message_info)
+                    eid = return_serch[2]
+                    print("禁用账号", wspin)
+                    ql_disable(eid)
+
             else:
                 print("wskey未生成pt_key\n")
                 return_ws = getToken(ws)
