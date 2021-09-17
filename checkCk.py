@@ -1,3 +1,18 @@
+# ---------------------------------------------------------------------------------
+#
+#                       自用脚本，可以借鉴，可以自用，请勿传播
+#                           新手学习为主，多为借鉴，想法居多
+#                                  实用性较强
+#                               更多用法，自己揣摩
+#
+#
+#                                   by Onz3V
+#
+# ---------------------------------------------------------------------------------
+'''
+cron: 0 */1 * * * checkCookies.py
+new Env('cookie过期检测');
+'''
 import time
 import datetime
 import os
@@ -76,8 +91,17 @@ def check_ck(ck):
             return True
         else:
             println(f"账号{pin}状态已经失效\n")
-            send(f"账号{pin}状态已经失效\n", message_info)
-            return False
+            # 如果需要转换适当修改此处
+            if os.path.exists("/ql/scripts/raw_master_de.py"):
+                send(f"账号{pin}状态已经失效\n", message_info)
+                os.system('task raw_master_de.py')
+                return False
+            # if os.path.exists("转换脚本的路径"):
+            #     send(f"账号{pin}状态已经失效\n",message_info)
+            #     os.system('task 转换脚本的路径')
+            #     return False
+            else:
+                return False
     else:
         send(f"账号{pin}状态已经失效\n", message_info)
         return False
