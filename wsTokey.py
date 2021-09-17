@@ -1,9 +1,9 @@
-# 解密Zy143L的wskey转换脚本	
+# 解密Zy143L的wskey转换脚本
 # 删除boom方法
 # 调用ddo的获取sign的云接口
 # 参考皮卡丘的相关代码，加入通知服务，wskey过期自动通知
 
-#此版本是我认为市面上相对安全的版本，可以放心使用。建议自用，勿传播。
+# 此版本是我认为市面上相对安全的版本，可以放心使用。建议自用，勿传播。
 
 import base64
 import http.client
@@ -33,13 +33,17 @@ requests.packages.urllib3.disable_warnings()
 # export QYWX_AM=''                # 企业微信；http://note.youdao.com/s/HMiudGkb
 # export PUSH_PLUS_TOKEN=''        # 微信推送Plus+ ；
 
-######## 获取通知模块
+# 获取通知模块
 message_info = ''''''
+
+
 def message(str_msg):
     global message_info
     print(str_msg)
     message_info = "{}\n{}".format(message_info, str_msg)
     sys.stdout.flush()
+
+
 def getsendNotify(a=0):
     if a == 0:
         a += 1
@@ -61,6 +65,8 @@ def getsendNotify(a=0):
             return getsendNotify(a)
         else:
             pass
+
+
 cur_path = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(cur_path)
 if os.path.exists(cur_path + "/sendNotify.py"):
@@ -69,6 +75,7 @@ else:
     getsendNotify()
     from sendNotify import send
 ###################
+
 
 def ql_login():
     path = '/ql/config/auth.json'
@@ -168,7 +175,7 @@ def appjmp(wskey, tokenKey):
     wskey = wskey.split(";")[0]
     if 'fake' in pt_key:
         print(wskey, "wskey状态失效\n")
-        send(wskey+"的wskey状态失效\n请查看是否退出客户端或者修改过密码",message_info)
+        send(wskey+"的wskey状态失效\n请查看是否退出客户端或者修改过密码", message_info)
         return False, jd_ck
     else:
         print(wskey, "wskey状态正常\n")
@@ -278,14 +285,14 @@ if __name__ == '__main__':
                         ql_update(eid, nt_key)
                     else:
                         print(ws, "wskey失效\n")
-                        send(wskey+"的wskey状态失效\n请查看是否退出了客户端或者修改过密码",message_info)
+                        send(ws+"的wskey状态失效\n请查看是否退出了客户端或者修改过密码", message_info)
                         eid = return_serch[2]
                         print("禁用账号", wspin)
                         ql_disable(eid)
                 else:
                     print(wspin, "账号有效")
                     print("--------------------\n")
-                    
+
             else:
                 print("wskey未生成pt_key\n")
                 return_ws = getToken(ws)
