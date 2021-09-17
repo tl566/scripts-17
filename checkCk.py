@@ -43,7 +43,11 @@ def check_ck(ck):
 if __name__ == '__main__':
     cookies = os.environ['JD_COOKIE']
     cookies = cookies.split('&')
-    println(f'总共{len(cookies)}个账号\n')
-    print('\n--------------正在检测京东账号的可用性----------------\n')
-    for ck in cookies:
-        check_ck(ck)
+    cookies = [i for i in cookies if i != '']
+    if len(cookies) > 0:
+        println(f'总共{len(cookies)}个账号\n')
+        print('\n--------------正在检测京东账号的可用性----------------\n')
+        for ck in cookies:
+            check_ck(ck)
+    else:
+        print('\n--------------没号你测个毛啊----------------\n')
