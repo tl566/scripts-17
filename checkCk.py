@@ -25,7 +25,7 @@ from urllib.parse import quote, unquote
 import threading
 requests.packages.urllib3.disable_warnings()
 
-
+expiredCount = 0
 message_info = ''''''
 
 
@@ -80,8 +80,7 @@ def check_ck(ck):
                'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Mobile/15E148 Safari/604.1', }
     res = requests.get(url=url, headers=headers, verify=False, timeout=30)
     pin = ck.split(";")[1][7:]
-    print(pin)
-    # pin = ck.match(/pt_pin=([^; ]+)(?=;?)/)
+    global expiredCount
     if res.status_code == 200:
         code = int(json.loads(res.text)['retcode'])
         if code == 0:
@@ -90,31 +89,26 @@ def check_ck(ck):
             println(f"账号{nickname}的状态正常\n")
             return True
         else:
+            expiredCount += 1
             println(f"账号{pin}状态已经失效\n")
-            # 如果需要转换适当修改此处
-            if os.path.exists("/ql/scripts/raw_master_de.py"):
-                send(f"账号{pin}状态已经失效\n", message_info)
-                os.system('task raw_master_de.py')
-                return False
-            # if os.path.exists("转换脚本的路径"):
-            #     send(f"账号{pin}状态已经失效\n",message_info)
-            #     os.system('task 转换脚本的路径')
-            #     return False
-            else:
-                return False
+            return False
     else:
         send(f"账号{pin}状态已经失效\n", message_info)
         return False
 
 
 if __name__ == '__main__':
-    cookies = os.environ['JD_COOKIE']
-    cookies = cookies.split('&')
+    cookies = os.environ['JD_COOKIE'].split('&')
     cookies = [i for i in cookies if i != '']
     if len(cookies) > 0:
         println(f'总共{len(cookies)}个账号\n')
         print('\n--------------正在检测京东账号的可用性----------------\n')
         for ck in cookies:
             check_ck(ck)
+        if expiredCount != 0:
+            # 如果需要转换适当修改此处
+            if os.path.exists("/ql/scripts/raw_master_de.py"):
+                # send(f"账号{pin}状态已经失效\n",message_info)
+                os.system('task raw_master_de.py')
     else:
         print('\n--------------没号你测个毛啊----------------\n')
