@@ -9,10 +9,7 @@
 #                                   by Onz3V
 #
 # ---------------------------------------------------------------------------------
-'''
-cron: 0 */1 * * * checkCK.py
-new Env('cookie过期检测');
-'''
+# 建议cron: 0 */1 * * * 一小时一次
 import time
 import datetime
 import os
