@@ -22,7 +22,6 @@ from urllib.parse import quote, unquote
 import threading
 requests.packages.urllib3.disable_warnings()
 
-expiredCount = 0
 message_info = ''''''
 
 
@@ -32,28 +31,35 @@ def message(str_msg):
     message_info = "{}\n{}".format(message_info, str_msg)
     sys.stdout.flush()
 
+# 不管scripts下有没有sendnotify.py，都重新拉一下
+
 
 def getsendNotify(a=0):
-    if a == 0:
-        a += 1
-    try:
-        url = 'https://gitee.com/curtinlv/Public/raw/master/sendNotify.py'
-        response = requests.get(url)
-        if 'main' in response.text:
-            with open('sendNotify.py', "w+", encoding="utf-8") as f:
-                f.write(response.text)
-        else:
-            if a < 5:
-                a += 1
-                return getsendNotify(a)
-            else:
-                pass
-    except:
-        if a < 5:
-            a += 1
-            return getsendNotify(a)
-        else:
-            pass
+    # if a == 0:
+    #     a += 1
+    # try:
+    #     url = 'https://gitee.com/curtinlv/Public/raw/master/sendNotify.py'
+    #     response = requests.get(url)
+    #     if 'main' in response.text:
+    #         with open('sendNotify.py', "w+", encoding="utf-8") as f:
+    #             f.write(response.text)
+    #     else:
+    #         if a < 5:
+    #             a += 1
+    #             return getsendNotify(a)
+    #         else:
+    #             pass
+    # except:
+    #     if a < 5:
+    #         a += 1
+    #         return getsendNotify(a)
+    #     else:
+    #         pass
+    url = 'https://gitee.com/curtinlv/Public/raw/master/sendNotify.py'
+    response = requests.get(url)
+    if 'main' in response.text:
+        with open('sendNotify.py', "w+", encoding="utf-8") as f:
+            f.write(response.text)
 
 
 cur_path = os.path.abspath(os.path.dirname(__file__))
@@ -109,31 +115,19 @@ def get_ck():
         sys.exit(0)
 
 
-def ql_enable(eid):
-    url = 'http://127.0.0.1:5700/api/envs/enable'
-    data = '["{0}"]'.format(eid)
-    res = json.loads(s.put(url=url, data=data).text)
-    if res['code'] == 200:
-        print("账号启用成功")
-        print("--------------------\n")
-        return True
-    else:
-        print("账号启用失败")
-        print("--------------------\n")
-        return False
-
-
 def ql_disable(ck):
     eid = get_id(ck)
     url = 'http://127.0.0.1:5700/api/envs/disable'
     data = '["{0}"]'.format(eid)
     res = json.loads(s.put(url=url, data=data).text)
     if res['code'] == 200:
-        println("账号禁用成功")
+        println("账号禁用成功\n")
+        # send("账号禁用成功")
         # print("--------------------\n")
         return True
     else:
-        println("账号禁用失败")
+        println("账号禁用失败n")
+        # send("账号禁用失败")
         # print("--------------------\n")
         return False
 
@@ -157,6 +151,7 @@ def get_id(ck):
 
 
 def check_ck(ck):
+    # global nickname
     url = 'https://wq.jd.com/user_new/info/GetJDUserInfoUnion?orgFlag=JD_PinGou_New&callSource=mainorder'
     headers = {'Cookie': ck, 'Referer': 'https://home.m.jd.com/myJd/home.action',
                'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Mobile/15E148 Safari/604.1', }
@@ -173,8 +168,8 @@ def check_ck(ck):
             println('但是我们还想检验一下')
             re_check_ck(ck)
         else:
-            println(f"账号《{nickname}》状态已经失效")
-            send(f"账号《《{nickname}》状态已经失效", message_info)
+            println(f"账号《{pin}》状态已经失效")
+            send(f"账号《《{pin}》状态已经失效", message_info)
             ql_disable(ck)
     else:
         println("接口炸掉了,直接请求加强检查接口")
@@ -191,10 +186,10 @@ def re_check_ck(ck):
     if res.status_code == 200:
         code = json.loads(res.text)['islogin']
         if code == "1":
-            println(f"账号《{nickname}》的状态确实正常\n")
+            println(f"账号《{pin}》的状态确实正常\n")
         else:
-            println(f"账号《{nickname}》状态已经失效")
-            send(f"账号{nickname}状态已经失效", message_info)
+            println(f"账号《{pin}》状态已经失效")
+            send(f"账号{pin}状态已经失效", message_info)
             ql_disable(ck)
     else:
         println("请求超时，接口炸掉了,一会再试吧")

@@ -45,26 +45,31 @@ def message(str_msg):
 
 
 def getsendNotify(a=0):
-    if a == 0:
-        a += 1
-    try:
-        url = 'https://gitee.com/curtinlv/Public/raw/master/sendNotify.py'
-        response = requests.get(url)
-        if 'main' in response.text:
-            with open('sendNotify.py', "w+", encoding="utf-8") as f:
-                f.write(response.text)
-        else:
-            if a < 5:
-                a += 1
-                return getsendNotify(a)
-            else:
-                pass
-    except:
-        if a < 5:
-            a += 1
-            return getsendNotify(a)
-        else:
-            pass
+    # if a == 0:
+    #     a += 1
+    # try:
+    #     url = 'https://gitee.com/curtinlv/Public/raw/master/sendNotify.py'
+    #     response = requests.get(url)
+    #     if 'main' in response.text:
+    #         with open('sendNotify.py', "w+", encoding="utf-8") as f:
+    #             f.write(response.text)
+    #     else:
+    #         if a < 5:
+    #             a += 1
+    #             return getsendNotify(a)
+    #         else:
+    #             pass
+    # except:
+    #     if a < 5:
+    #         a += 1
+    #         return getsendNotify(a)
+    #     else:
+    #         pass
+    url = 'https://gitee.com/curtinlv/Public/raw/master/sendNotify.py'
+    response = requests.get(url)
+    if 'main' in response.text:
+        with open('sendNotify.py', "w+", encoding="utf-8") as f:
+            f.write(response.text)
 
 
 cur_path = os.path.abspath(os.path.dirname(__file__))
