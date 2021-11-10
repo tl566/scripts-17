@@ -8,8 +8,11 @@
 import base64
 import http.client
 import json
+import datetime
 import os
+import re
 import sys
+from urllib.parse import quote, unquote
 try:
     import requests
 except Exception as e:
@@ -36,6 +39,10 @@ requests.packages.urllib3.disable_warnings()
 # 获取通知模块
 message_info = ''''''
 
+def println(s):
+    print("[{0}]: {1}".format(
+        datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), s))
+    sys.stdout.flush()
 
 def message(str_msg):
     global message_info
@@ -103,7 +110,7 @@ def ql_login():
         else:
             return token
     else:
-        print("没有发现auth文件, 你这是青龙吗???")
+        println("没有发现auth文件, 你这是青龙吗???")
         sys.exit(0)
 
 
@@ -116,7 +123,7 @@ def get_wskey():
             print("JD_WSCK变量未启用")
             sys.exit(1)
     else:
-        print("未添加JD_WSCK变量")
+        println("未添加JD_WSCK变量")
         sys.exit(0)
 
 
@@ -126,10 +133,10 @@ def get_ck():
         if len(ck_list) > 0:
             return ck_list
         else:
-            print("JD_COOKIE变量未启用")
+            println("JD_COOKIE变量未启用")
             sys.exit(1)
     else:
-        print("未添加JD_COOKIE变量")
+        println("未添加JD_COOKIE变量")
         sys.exit(0)
 
 
@@ -142,14 +149,31 @@ def check_ck(ck):
         code = int(json.loads(res.text)['retcode'])
         pin = ck.split(";")[1]
         if code == 0:
-            print(pin, "状态正常\n")
-            return True
+            println(f"{pin}状态正常\n")
+            return re_check_ck(ck)
         else:
-            print(pin, "状态失效\n")
+            println(f"{pin}状态失效\n")
             return False
     else:
         return False
-
+    
+def re_check_ck(ck):
+    url = 'https://plogin.m.jd.com/cgi-bin/ml/islogin'
+    headers = {'Cookie': ck, 'Referer': 'https://h5.m.jd.com/',
+               'User-Agent': 'jdapp;iPhone;10.1.2;15.0;network/wifi;Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1', }
+    res = requests.get(url=url, headers=headers, verify=False, timeout=30)
+    pin = r.findall(ck)
+    pin = unquote(pin[0])
+    if res.status_code == 200:
+        code = json.loads(res.text)['islogin']
+        if code == "1":
+            println(f"账号{pin}的状态确实正常\n")
+            return True
+        else:
+            println(f"账号{pin}状态已经失效")
+            return False
+    else:
+        println("请求超时，接口炸掉了,一会再试吧")
 
 def getToken(wskey):
     headers = {'cookie': wskey, 'User-Agent': 'okhttp/3.12.1;jdmall;android;version/10.1.2;build/89743;screen/1440x3007;os/11;network/wifi;',
@@ -179,11 +203,11 @@ def appjmp(wskey, tokenKey):
     jd_ck = str(pt_key)+';'+str(pt_pin)+';'
     wskey = wskey.split(";")[0]
     if 'fake' in pt_key:
-        print(wskey, "wskey状态失效\n")
+        println(f"{wskey}wskey状态失效\n")
         send(wskey+"的wskey状态失效\n请查看是否退出客户端或者修改过密码", message_info)
         return False, jd_ck
     else:
-        print(wskey, "wskey状态正常\n")
+        println(f"{wskey}wskey状态正常\n")
         return True, jd_ck
 
 
@@ -207,10 +231,10 @@ def serch_ck(pin):
     conn.request("GET", url, payload, headers)
     res = json.loads(conn.getresponse().read())
     if len(res['data']) == 0:
-        print(pin, "检索失败\n")
+        print(f"{pin}检索失败\n")
         return False, 1
     elif len(res['data']) > 1:
-        print(pin, "Pin存在重复, 取第一条\n")
+        println(f"{pin}Pin存在重复, 取第一条\n")
         key = res['data'][0]['value']
         eid = res['data'][0]['_id']
         return True, key, eid
@@ -235,12 +259,12 @@ def ql_enable(eid):
     data = '["{0}"]'.format(eid)
     res = json.loads(s.put(url=url, data=data).text)
     if res['code'] == 200:
-        print("账号启用成功")
-        print("--------------------\n")
+        println("账号启用成功")
+        println("--------------------\n")
         return True
     else:
-        print("账号启用失败")
-        print("--------------------\n")
+        println("账号启用失败")
+        println("--------------------\n")
         return False
 
 
@@ -249,12 +273,12 @@ def ql_disable(eid):
     data = '["{0}"]'.format(eid)
     res = json.loads(s.put(url=url, data=data).text)
     if res['code'] == 200:
-        print("账号禁用成功")
-        print("--------------------\n")
+        println("账号禁用成功")
+        println("--------------------\n")
         return True
     else:
-        print("账号禁用失败")
-        print("--------------------\n")
+        println("账号禁用失败")
+        println("--------------------\n")
         return False
 
 
@@ -263,11 +287,12 @@ def ql_insert(i_ck):
     data = json.dumps(data)
     url = 'http://127.0.0.1:5700/api/envs'
     s.post(url=url, data=data)
-    print("账号添加完成")
-    print("--------------------\n")
+    println("账号添加完成")
+    println("--------------------\n")
 
 
 if __name__ == '__main__':
+    r = re.compile(r'pt_pin=(.*?);')
     sv, st, uuid, sign = get_sign()
     token = ql_login()
     s = requests.session()
@@ -285,27 +310,27 @@ if __name__ == '__main__':
                     return_ws = getToken(ws)
                     if return_ws[0]:
                         nt_key = str(return_ws[1])
-                        print("wskey转换成功\n")
+                        println("wskey转换成功\n")
                         eid = return_serch[2]
                         ql_update(eid, nt_key)
                     else:
-                        print(ws, "wskey失效\n")
+                        println(f"{ws}wskey失效\n")
                         send(ws+"的wskey状态失效\n请查看是否退出了客户端或者修改过密码", message_info)
                         eid = return_serch[2]
-                        print("禁用账号", wspin)
+                        println("禁用账号", wspin)
                         ql_disable(eid)
                 else:
-                    print(wspin, "账号有效")
-                    print("--------------------\n")
+                    println(f"{wspin}账号有效\n")
+                    println("----------------------------------\n\n")
 
             else:
-                print("wskey未生成pt_key\n")
+                println("wskey未生成pt_key\n")
                 return_ws = getToken(ws)
                 if return_ws[0]:
                     nt_key = str(return_ws[1])
-                    print("wskey转换成功\n")
+                    println("wskey转换成功\n")
                     ql_insert(nt_key)
         else:
-            print("WSKEY格式错误\n--------------------\n")
-    print("执行完成\n--------------------")
+            println("WSKEY格式错误\n--------------------\n")
+    println("执行完成\n--------------------")
     sys.exit(0)
