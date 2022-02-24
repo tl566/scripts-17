@@ -1,7 +1,9 @@
 /*
 cron "30 10 * * *" jd_UpdateUIDtoRemark.js, tag:Uid迁移工具
  */
-
+/*
+	注解：由于芝士的wsk只能从另一个容器迁移到其他容器，所以导致很多迁移过来的ck没有备注，稍微修改了一下，供参考。
+*/
 const $ = new Env("WxPusherUid迁移工具");
 const notify = $.isNode() ? require("./sendNotify") : "";
 //Node.js用户请在jdCookie.js处填写京东ck;
