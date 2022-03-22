@@ -31,9 +31,6 @@ except Exception as err:
     logger.debug(str(err))
     logger.info("无推送文件")
 
-ver = 20318
-
-
 # 登录青龙 返回值 token
 def get_qltoken(username, password):
     logger.info("Token失效, 新登陆\n")
