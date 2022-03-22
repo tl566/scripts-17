@@ -31,7 +31,7 @@ except Exception as err:
     logger.debug(str(err))
     logger.info("无推送文件")
 
-ver = 20203
+ver = 20318
 
 
 # 登录青龙 返回值 token
@@ -225,25 +225,6 @@ def appjmp(wskey, tokenKey):
                 logger.info(str(wskey) + ";WsKey状态正常\n")
                 return True, jd_ck
 
-
-def update():
-    up_ver = int(cloud_arg['update'])
-    if ver >= up_ver:
-        logger.info("当前脚本版本: " + str(ver))
-        logger.info("--------------------\n")
-    else:
-        logger.info("当前脚本版本: " + str(ver) + "新版本: " + str(up_ver))
-        logger.info("存在新版本, 请更新脚本后执行")
-        logger.info("--------------------\n")
-        text = '当前脚本版本: {0}新版本: {1}, 请更新脚本~!'.format(ver, up_ver)
-        try:
-            send('WSKEY转换', text)
-        except Exception as err:
-            logger.debug(str(err))
-            logger.info("通知发送失败")
-        # sys.exit(0)
-
-
 def ql_check(port):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.settimeout(2)
@@ -423,7 +404,6 @@ if __name__ == '__main__':
     ql_id = check_id()
     url_t = check_cloud()
     cloud_arg = cloud_info()
-    update()
     ua = cloud_arg['User-Agent']
     wslist = get_wskey()
     envlist = get_env()
