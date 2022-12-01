@@ -1,0 +1,325 @@
+返利排错
+更新((稳定版)|(尝鲜版))?
+升级((稳定版)|(尝鲜版))?
+set ? ? ?
+delete ? ?
+? set ? ?
+? delete ?
+set ? ?
+? set ?
+(https://lzkj\-isv\.isvjcloud\.com/sign/sevenDay/signActivity\?activityId=[0123456789abcdef]{32})
+(https://lzkj\-isv\.isvjcloud\.com/sign/signActivity2?\?activityId=[0123456789abcdef]{32})
+(https://cjhy\-isv\.isvjcloud\.com/sign/sevenDay/signActivity\?activityId=[0123456789abcdef]{32})
+(https://cjhy\-isv\.isvjcloud\.com/sign/signActivity\?activityId=[0123456789abcdef]{32})
+(https://lzkj\-isv\.isvjd\.com/sign/sevenDay/signActivity\?activityId=[0123456789abcdef]{32})
+(https://lzkj\-isv\.isvjd\.com/sign/signActivity2?\?activityId=[0123456789abcdef]{32})
+(https://cjhy\-isv\.isvjd\.com/sign/sevenDay/signActivity\?activityId=[0123456789abcdef]{32})
+(https://cjhy\-isv\.isvjd\.com/sign/signActivity\?activityId=[0123456789abcdef]{32})
+pin=([^;=\s]+); wskey=([^;=\s]+)
+wskey=([^;=\s]+); pin=([^;=\s]+)
+pt_key=([^;=\s]+); pt_pin=([^;=\s]+)
+pt_pin=([^;=\s]+); pt_key=([^;=\s]+)
+key=inCartShareM(&|&amp;)p=?@@
+ql update check
+账号关联：?([a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12})?
+饿了么
+ele
+jd\.[comhk]{2,3}.?/(\d+)\.html
+m\.jingxi\.[comhk]{2,3}?sku=(\d+)
+detail.html\?sku=(\d+)
+m\.jd\.[comhk]{2,3}??wareId=(\d+)
+jd\.[comhk]{2,3}?sku[i|I]?d?=(\d+)
+jd?/product.?/(\d+)\.html
+item\.yiyaojd\.com.?/(\d+)\.html
+detail/index\.html\?sku=(\d+)
+(?i)(https?://m\.tb\.cn/h\.[\w]{7}\?sm=[\w]{6})
+(?i)(https?://m\.tb\.cn/h\.[\w]{7}\?tk=[\w]{11})
+(?i)(https?://m\.tb\.cn/h\.[\w]{7})
+\.taobao\.?id=(\d+)
+\.tmall\.?id=(\d+)
+mobile\.yangkeduo\.com
+tokens pick
+\d*(-\d*)?天\d{1,3}\.?\d{1,2}?(京)?豆
+签(到)?\d*([+-\\]\d*)*?(京)?豆
+新增(粉)?签(到)?
+TOKEN
+DPQDTK=
+https://h5\.m\.jd\.com/babelDiy/Zeus/
+((设置)|(查询)|(显示)|(关闭))文案[：|:]???
+导出((数据)|(配置))
+V
+(返利)?版本
+ver(sion)?
+time
+临时静默
+紧急静默
+群号
+machineId
+机器码
+守护奥特曼
+system
+started_at
+notify ?
+compiled_at
+groupCode
+myuid
+send ? ? ?
+list ?
+get ? ?
+? get ?
+empty ?
+empty ? ?
+? empty ?
+命令
+status
+重启
+reboot
+restart
+编译
+升级 ?
+升级
+卸载
+replies
+reply ? ?
+reply empty all
+name
+迁入咖啡码?
+迁出咖啡码
+((清空)|(删除)|(清除))咖啡码
+咖啡(码|吗)
+模块管理
+测颜值
+看图猜成语
+猜歌名
+成语接龙
+ql cron hide duplicate
+ql cron logs ?
+ql cron find ?
+ql cron disable ?
+ql cron enable ?
+ql cron stop ?
+ql cron run ?
+ql cron status ?
+青龙管理
+歇后语
+小爱?
+严格成语接龙
+魅力榜
+金币榜
+转换
+礼物
+积分榜
+充值
+兑换
+(签到)
+(打卡)
+注册
+修改信息
+我的信息
+用户菜单
+ssh[ ]??
+HA关闭?
+ha关闭?
+HA打开?
+ha打开?
+HA开启?
+ha开启?
+HA配置
+ha配置
+HA
+ha
+测试wskey
+东芝管理
+超级无线店铺签到
+([()#@$%¥￥!！][0-9a-zA-Z]{10}[(|)#@$%¥￥!！])
+([()#@$%¥￥!！][0-9a-zA-Z]{12,16}[()#@$%¥￥!！])
+京东对时
+收藏有礼
+tokens sign
+tokens check
+shop\.m\.jd\.com\\?/\?shopId=(\d*?)(&|&amp;)
+签到管理
+账号管理
+关闭(??)通知
+任务通知
+packetId=?(&|&amp;)+?
+\bexport\b
+"vess":"??"\}
+队列
+清空洞察变量
+jd unbind
+jd send ? ?
+jd unbind ?
+login
+jd remark ? ?
+jd disable ?
+jd enable ?
+jd exchange ? ?
+jd find ?
+jd eueu ?
+更新东芝账号
+wsck(一键)?解密
+wsck(一键)?加密
+jd bean(?)
+jd imOf ?
+((今日)|(昨日))京豆
+查询
+myCookie
+资产推送
+jd asset ?
+查询 ?
+打开东芝
+关闭东芝
+zdm
+https?://m\.vip\.com/
+https?://t\.vip\.com/
+美团
+mt
+meituan
+ql subscriptions run ?
+ql cookie status
+ql repo ?
+ql task ?
+ql raw ?
+ql env enable ?
+ql env disable ?
+ql env remark ? ?
+ql env delete ?
+ql env set ? ?
+ql env find ?
+ql env get ?
+ql envs
+青龙配置文件管理
+(?i)(u\.jd\.com.?/\w{7})
+(?i)(s\.click\.taobao\.com.?/\w{7})
+[^a-zA-Z0-9;=<][a-zA-Z0-9]{11}[^a-zA-Z0-9;=>]
+(?i)(p\.pinduoduo\.com/\w{8})
+uin=([^;=\s]+);??p_skey=([^;=\s]+);
+打赏
+[搜|找|买] ?
+(查询)?淘宝授权
+重置??收益
+提现
+结算
+更新订单
+(\d{12})
+(\d{19})
+(\d{6}-\d{15})
+(查询)?收益(查询)?
+返利参数
+((设置)|(参数))((参数)|(设置))
+设置
+海报设置
+((海报)|(文字)|(京粉)|(混合))模式
+((显示)|(关闭))图片
+((显示)|(关闭))货比[3|三]家
+((显示)|(关闭))历史价格
+((打开)|(开启)|(关闭))价格监控提示
+((打开)|(开启)|(关闭))默认转发
+((开启)|(打开)|(关闭))转发线报群提示
+删除商品?
+清空购物车
+购物车
+查询监控
+降价检查
+关闭群回复
+((开启)|(打开))群回复
+https://?isvjcloud
+https://?isvjd
+cjwx/common/entry.html
+https://pro(dev)?.m.jd.com/mall/active/dVF7gQUVKyUcuSsVhuya5d2XD4F/
+
+
+车头
+
+jd_40e4fedc6bae1,%E9%98%B3%E5%85%89%E5%85%89%E9%98%B3222,jd_5fc7b53989388,jd_442429064ff95,jd_lGmcVQrrfAmB,jd_7d159e74c4def,%E4%B8%B6%E8%AF%BA%E8%AF%BA%E8%AF%BA%E8%AF%BA,13205378285_p,%E5%A4%A9%E8%B5%90%E9%87%8D%E5%90%8D,jd_543d7d129e681,jd_57bc08402c4a0,jd_51f4962e6d757,%E5%A4%8F%E4%BA%91%E6%B5%A9-%E5%BA%86,jd_20150730,jd_5e7f10ed4fe48,jd_70a16243f954a,qin795217119,jd_5377cbed17b22,350975363_m,jd_5b198a5a63355,jd_4659c5e03012f,jd_4fda8e3b525f9,jd_45b46270d9118,ailn_99,%E7%9F%B3%E7%BB%8D%E9%9D%92,jd_zJPtonSPHCxj,Qun%E7%BE%A45691,w1106507623,jd_46e09ef82d655,jd_43ea1bd056e83,wangshuailyt,jd_64896541dbd1f
+
+C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup
+
+      <van-tab title="待发货" name='2'>
+        <view class="listBox" wx:for="{{list}}" wx:key="index">
+          <view class="shop">
+            <view class="name" bindtap="goUrl" data-shopId="{{item.shop_id}}">
+              <view wx:if="{{item.shop_name}}" class="text line1">{{item.shop_name}}</view>
+              <image wx:if="{{item.shop_name}}" src="/pages/main/car/assets/images/jt.png"></image>
+            </view>
+            <view class="state" wx:if="{{item.status_info}}">{{item.status_info.title}}</view>
+          </view>
+          <view class="goods">
+            <image mode="aspectFill" src="{{item.goods_thumb}}"></image>
+            <view class="news">
+              <view class="goodsName line1">{{item.goods_title}}</view>
+              <view class="goodsSum">
+                <view class="left">￥{{item.goods_price*1}}</view>
+                <view class="right">×{{item.goods_num}}</view>
+              </view>
+              <view class="jiage">实付款￥{{item.pay_money*1}}</view>
+            </view>
+          </view>
+          <view class="bottom">
+            <navigator hover-class="none" url='/pages/sp_user/order/info/index?id={{item.id}}&active={{active}}' class="box">查看详情</navigator>
+            <!--取消订单-->
+            <view wx:if="{{item.status_operate.cancel}}" data-index="{{index}}" bindtap="cancel" class="box">{{item.status_operate.cancel.title}}</view>
+            <!--支付-->
+            <view wx:if="{{item.status_operate.pay}}" class="box color1" bindtap="pay" data-index="{{index}}">{{item.status_operate.pay.title}}</view>
+          </view>
+        </view>
+      </van-tab>
+      <van-tab title="待收货" name='3'>
+        <view class="listBox" wx:for="{{list}}" wx:key="index">
+          <view class="shop">
+            <view class="name" bindtap="goUrl" data-shopId="{{item.shop_id}}">
+              <view wx:if="{{item.shop_name}}" class="text line1">{{item.shop_name}}</view>
+              <image wx:if="{{item.shop_name}}" src="/pages/main/car/assets/images/jt.png"></image>
+            </view>
+            <view class="state" wx:if="{{item.status_info}}">{{item.status_info.title}}</view>
+          </view>
+          <view class="goods">
+            <image mode="aspectFill" src="{{item.goods_thumb}}"></image>
+            <view class="news">
+              <view class="goodsName line1">{{item.goods_title}}</view>
+              <view class="goodsSum">
+                <view class="left">￥{{item.goods_price*1}}</view>
+                <view class="right">×{{item.goods_num}}</view>
+              </view>
+              <view class="jiage">实付款￥{{item.pay_money*1}}</view>
+            </view>
+          </view>
+          <view class="bottom">
+            <navigator hover-class="none" url='/pages/sp_user/order/info/index?id={{item.id}}&active={{active}}' class="box">查看详情</navigator>
+            <!--取消订单-->
+            <view wx:if="{{item.status_operate.cancel}}" data-index="{{index}}" bindtap="cancel" class="box">{{item.status_operate.cancel.title}}</view>
+            <!--支付-->
+            <view wx:if="{{item.status_operate.pay}}" class="box color1" bindtap="pay" data-index="{{index}}">{{item.status_operate.pay.title}}</view>
+          </view>
+        </view>
+      </van-tab>
+      <van-tab title="已完成" name='4'>
+        <view class="listBox" wx:for="{{list}}" wx:key="index">
+          <view class="shop">
+            <view class="name" bindtap="goUrl" data-shopId="{{item.shop_id}}">
+              <view wx:if="{{item.shop_name}}" class="text line1">{{item.shop_name}}</view>
+              <image wx:if="{{item.shop_name}}" src="/pages/main/car/assets/images/jt.png"></image>
+            </view>
+            <view class="state" wx:if="{{item.status_info}}">{{item.status_info.title}}</view>
+          </view>
+          <view class="goods">
+            <image mode="aspectFill" src="{{item.goods_thumb}}"></image>
+            <view class="news">
+              <view class="goodsName line1">{{item.goods_title}}</view>
+              <view class="goodsSum">
+                <view class="left">￥{{item.goods_price*1}}</view>
+                <view class="right">×{{item.goods_num}}</view>
+              </view>
+              <view class="jiage">实付款￥{{item.pay_money*1}}</view>
+            </view>
+          </view>
+          <view class="bottom">
+            <navigator hover-class="none" url='/pages/sp_user/order/info/index?id={{item.id}}&active={{active}}' class="box">查看详情</navigator>
+            <!--取消订单-->
+            <view wx:if="{{item.status_operate.cancel}}" data-index="{{index}}" bindtap="cancel" class="box">{{item.status_operate.cancel.title}}</view>
+            <!--支付-->
+            <view wx:if="{{item.status_operate.pay}}" class="box color1" bindtap="pay" data-index="{{index}}">{{item.status_operate.pay.title}}</view>
+          </view>
+        </view>
+      </van-tab>
